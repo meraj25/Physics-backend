@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import ContentRouter from './api/content.js';
 import connectDB from './infrastructure/db/index.js';
