@@ -2,6 +2,7 @@ import Content from "../infrastructure/db/entities/Content";
 import { Request, Response,NextFunction } from "express";
 import ValidationError from "../domain/errors/validation-error";
 import NotFoundError from "../domain/errors/not-found-error";
+import { CreateContentDTO } from "../domain/dto/content";
 
 const getAllContent = async(req: Request, res: Response, next: NextFunction) =>{
 
@@ -33,23 +34,25 @@ const getAllContent = async(req: Request, res: Response, next: NextFunction) =>{
 
 const createContent = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        
-        const newContent = req.body;
-        if(!newContent.categoryId) {
-            throw new ValidationError("Category ID is required");
-        }
-         if(!newContent.yearId) {
-            throw new ValidationError("Year ID is required");
-        }
-         if(!newContent.topicId) {
-            throw new ValidationError("Topic ID is required");
-        }
-        
+    const result = CreateContentDTO.safeParse(req.body);
+    if (!result.success) {
+      throw new ValidationError(result.error.message);
+    }
 
-        await Content.create(newContent);
-        res.status(201).json(newContent);
+    const { year, category, topic, assignment, description, payment } = result.data;
 
-    } 
+   
+
+    const content = await Content.create({
+      year,
+      category,
+      topic,
+      assignment,
+      description,
+      payment
+    });
+    res.status(201).json(content);
+  }
     catch (error) 
     {
         next(error);
