@@ -1,8 +1,20 @@
 import  express  from "express";
+import { getAllContent,
+          createContent,
+          deleteContent,
+
+ } from "../application/content";
+
+
+
 const ContentRouter = express.Router();
 
-ContentRouter.get('/content', (req, res) => {
-  res.json({ message: 'Hello from the content API!' });
-});
+ContentRouter
+  .route("/")
+  .get(getAllContent)
+  .post(createContent)
+  .delete(deleteContent);
+
+
 
 export default ContentRouter;
