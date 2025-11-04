@@ -39,7 +39,7 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       throw new ValidationError(result.error.message);
     }
 
-    const { year, category, topic, assignment, description, payment } = result.data;
+    const { year, category, topic, assignment, link, description, payment } = result.data;
 
    
 
@@ -48,6 +48,7 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       category,
       topic,
       assignment,
+      link,
       description,
       payment
     });

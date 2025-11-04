@@ -1,10 +1,11 @@
 import express from 'express';
-import { getAllYears } from '../application/year';
+import { getAllYears, createYear } from '../application/year';
 
 const YearRouter = express.Router();
 
 YearRouter
 .route('/')
-.get(getAllYears);
+.get(getAllYears)
+.post(createYear);
 
 export default YearRouter;

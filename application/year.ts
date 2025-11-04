@@ -1,5 +1,6 @@
 import Year from "../infrastructure/db/entities/Year";
 import { Request, Response, NextFunction } from "express";
+import ValidationError from "../domain/errors/validation-error";
 
 const getAllYears = async (
   req: Request,
@@ -13,4 +14,21 @@ const getAllYears = async (
     next(error);
   }
 };
-export { getAllYears };
+
+const createYear = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const newYear = req.body;
+    if (!newYear.year) {
+      throw new ValidationError("Year is required");
+    }
+    await Year.create(newYear);
+    res.status(201).json(newYear);
+  } catch (error) {
+    next(error);
+  }
+};
+export { getAllYears, createYear };
