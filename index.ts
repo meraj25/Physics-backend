@@ -1,12 +1,12 @@
 import 'dotenv/config';
 import express from 'express';
-import connectDB from './infrastructure/db/index.js';
-import ContentRouter from './api/content.js';
-import CategoryRouter from './api/category.js';
-import TopicRouter from './api/topic.js';
-import YearRouter from './api/year.js';
-import globalErrorHandlingMiddleware from './api/middleware/global-error-handling-middleware.js';
-import StudyPackRouter from './api/studypack.js';
+import connectDB from './infrastructure/db/index';
+import ContentRouter from './api/content';
+import CategoryRouter from './api/category';
+import TopicRouter from './api/topic';
+import YearRouter from './api/year';
+import globalErrorHandlingMiddleware from './api/middleware/global-error-handling-middleware';
+import StudyPackRouter from './api/studypack';
 import cors from 'cors';
 
 const app = express();
