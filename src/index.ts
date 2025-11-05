@@ -1,12 +1,12 @@
 import 'dotenv/config';
 import express from 'express';
-import connectDB from './src/infrastructure/db';
-import ContentRouter from './src/api/content';
-import CategoryRouter from './src/api/category';
-import TopicRouter from './src/api/topic';
-import YearRouter from './src/api/year';
-import globalErrorHandlingMiddleware from './src/api/middleware/global-error-handling-middleware';
-import StudyPackRouter from './src/api/studypack';
+import connectDB from './infrastructure/db';
+import ContentRouter from './api/content';
+import CategoryRouter from './api/category';
+import TopicRouter from './api/topic';
+import YearRouter from './api/year';
+import globalErrorHandlingMiddleware from './api/middleware/global-error-handling-middleware';
+import StudyPackRouter from './api/studypack';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
 
