@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
+import { string } from "zod";
 
 const yearSchema = new mongoose.Schema({
-  year: {
-    type: Number,
+  name: {
+    type: String,
     required: true,
   },
   slug: {
-    type: Number,
+    type: String,
     required: true,
   },
 });

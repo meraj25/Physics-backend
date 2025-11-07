@@ -39,18 +39,18 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       throw new ValidationError(result.error.message);
     }
 
-    const { year, category, topic, assignment, link, description, payment } = result.data;
+    const { yearId, categoryId, topic, assignment, link, description, paymentstatus } = result.data;
 
    
 
     const content = await Content.create({
-      year,
-      category,
+      yearId,
+      categoryId,
       topic,
       assignment,
       link,
       description,
-      payment
+      paymentstatus
     });
     res.status(201).json(content);
   }
