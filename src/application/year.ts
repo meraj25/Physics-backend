@@ -22,9 +22,7 @@ const createYear = async (
 ) => {
   try {
     const newYear = req.body;
-    if (!newYear.year) {
-      throw new ValidationError("Year is required");
-    }
+    
     await Year.create(newYear);
     res.status(201).json(newYear);
   } catch (error) {

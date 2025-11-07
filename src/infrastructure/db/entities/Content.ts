@@ -1,20 +1,20 @@
+import { link } from "fs";
 import mongoose from "mongoose";
 
 const contentSchema = new mongoose.Schema({
 
-  year: {
+  yearId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Year",
     required: true,
   },
-  category: {
+  categoryId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",
     required: true,
   },
   topic: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Topic", 
+    type: String,
     required: true,
   },
   assignment: {
@@ -28,6 +28,10 @@ const contentSchema = new mongoose.Schema({
   payment: {
     type: Boolean,
     default: false,
+  },
+  link: {
+    type: String,
+    required: true,
   },
   
 });
