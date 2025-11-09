@@ -1,5 +1,6 @@
 import { link } from "fs";
 import mongoose from "mongoose";
+import { string } from "zod";
 
 const contentSchema = new mongoose.Schema({
 
@@ -25,9 +26,9 @@ const contentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  payment: {
-    type: Boolean,
-    default: false,
+    paymentstatus: {
+    type: String,
+    required: true,
   },
   link: {
     type: String,

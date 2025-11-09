@@ -3,10 +3,11 @@ import express from 'express';
 import connectDB from './infrastructure/db';
 import ContentRouter from './api/content';
 import CategoryRouter from './api/category';
-import TopicRouter from './api/topic';
+import TopicRouter from './api/headings';
 import YearRouter from './api/year';
 import globalErrorHandlingMiddleware from './api/middleware/global-error-handling-middleware';
 import StudyPackRouter from './api/studypack';
+import HeadingsRouter from './api/headings';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
 
@@ -23,6 +24,7 @@ app.use('/api/categories', CategoryRouter);
 app.use('/api/topics', TopicRouter);
 app.use('/api/years', YearRouter);
 app.use('/api/studyPacks', StudyPackRouter);
+app.use('/api/headings', HeadingsRouter);
 
 app.use(globalErrorHandlingMiddleware);
 
