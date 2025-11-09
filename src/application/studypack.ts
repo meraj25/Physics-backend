@@ -35,6 +35,7 @@ const createStudyPack = async (req: Request, res: Response, next: NextFunction) 
     });
     res.status(201).json(studyPack);
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

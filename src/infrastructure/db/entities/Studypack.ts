@@ -1,4 +1,4 @@
-import { link } from "fs";
+
 import mongoose from "mongoose";
 
 const studypackSchema = new mongoose.Schema({
@@ -8,7 +8,7 @@ const studypackSchema = new mongoose.Schema({
     ref: "Headings",
     required: true,
   },
-  assignments: {
+  assignment: {
     type: String,
     required: true,
   },
