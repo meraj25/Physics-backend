@@ -17,7 +17,7 @@ app.use(express.json());
 
 app.use(clerkMiddleware());
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://physics-by-sanjaya.netlify.app" }));
 
 app.use('/api/contents', ContentRouter);
 app.use('/api/categories', CategoryRouter);
