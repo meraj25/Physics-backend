@@ -17,7 +17,12 @@ app.use(express.json());
 
 app.use(clerkMiddleware());
 
-app.use(cors({ origin: process.env.FRONTEND_URL }));
+app.use(cors({ 
+  origin: process.env.FRONTEND_URL,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+
+}));
 
 app.use('/api/contents', ContentRouter);
 app.use('/api/categories', CategoryRouter);
