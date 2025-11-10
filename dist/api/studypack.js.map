@@ -1,0 +1,1 @@
+{"version":3,"file":"studypack.js","sourceRoot":"","sources":["../../src/api/studypack.ts"],"names":[],"mappings":";;;;;AAAA,oDAAgC;AAChC,sDAA6F;AAI7F,IAAM,eAAe,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAEzC,eAAe;KACZ,KAAK,CAAC,GAAG,CAAC;KACV,GAAG,CAAC,4BAAgB,CAAC;KACrB,IAAI,CAAC,2BAAe,CAAC,CAAC;AAEzB,eAAe;KACZ,KAAK,CAAC,MAAM,CAAC;KACb,MAAM,CAAC,2BAAe,CAAC,CAAA;AAK1B,kBAAe,eAAe,CAAC"}

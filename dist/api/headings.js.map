@@ -1,0 +1,1 @@
+{"version":3,"file":"headings.js","sourceRoot":"","sources":["../../src/api/headings.ts"],"names":[],"mappings":";;;;;AAAA,oDAA8B;AAC9B,oDAAyD;AACzD,oDAAwD;AAExD,IAAM,cAAc,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAExC,cAAc;KACX,KAAK,CAAC,GAAG,CAAC;KACV,GAAG,CAAC,yBAAc,CAAC;KACnB,IAAI,CAAC,wBAAa,CAAC,CAAC;AAEvB,kBAAe,cAAc,CAAC"}

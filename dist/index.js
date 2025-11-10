@@ -1,0 +1,32 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+require("dotenv/config");
+var express_1 = __importDefault(require("express"));
+var db_1 = __importDefault(require("./infrastructure/db"));
+var content_1 = __importDefault(require("./api/content"));
+var category_1 = __importDefault(require("./api/category"));
+var headings_1 = __importDefault(require("./api/headings"));
+var year_1 = __importDefault(require("./api/year"));
+var global_error_handling_middleware_1 = __importDefault(require("./api/middleware/global-error-handling-middleware"));
+var studypack_1 = __importDefault(require("./api/studypack"));
+var headings_2 = __importDefault(require("./api/headings"));
+var cors_1 = __importDefault(require("cors"));
+var express_2 = require("@clerk/express");
+var app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use((0, express_2.clerkMiddleware)());
+app.use((0, cors_1.default)({ origin: process.env.FRONTEND_URL }));
+app.use('/api/contents', content_1.default);
+app.use('/api/categories', category_1.default);
+app.use('/api/topics', headings_1.default);
+app.use('/api/years', year_1.default);
+app.use('/api/studyPacks', studypack_1.default);
+app.use('/api/headings', headings_2.default);
+app.use(global_error_handling_middleware_1.default);
+(0, db_1.default)();
+var port = process.env.PORT || 8000;
+app.listen(port, function () { return console.log("Server is running on port ".concat(port)); });
+//# sourceMappingURL=index.js.map
