@@ -13,7 +13,10 @@ ContentRouter
   .route("/")
   .get(getAllContent)
   .post(createContent)
-  .delete(deleteContent);
+ 
+ContentRouter
+  .route("/:id")
+  .delete(deleteContent)
 
 
 

@@ -8,8 +8,12 @@ const StudyPackRouter = express.Router();
 StudyPackRouter
   .route("/")
   .get(getAllStudyPacks)
-  .post(createStudyPack)
-  .delete(deleteStudyPack);
+  .post(createStudyPack);
+
+StudyPackRouter
+  .route("/:id")
+  .delete(deleteStudyPack)
+  
 
 
 
