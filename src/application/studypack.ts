@@ -24,14 +24,15 @@ const createStudyPack = async (req: Request, res: Response, next: NextFunction) 
       throw new ValidationError(result.error.message);
     }
 
-    const { heading, assignment, link, paymentstatus } = result.data;
+    const { heading, assignment,topic, link, paymentstatus } = result.data;
 
     const studyPack = await StudyPack.create({
      
-      heading,
+      heading ,
       assignment,
-      link,
-      paymentstatus
+      topic,
+      paymentstatus,
+      link
     });
     res.status(201).json(studyPack);
   } catch (error) {

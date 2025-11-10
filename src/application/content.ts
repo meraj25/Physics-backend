@@ -50,7 +50,8 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       assignment,
       link,
       description,
-      paymentstatus
+      paymentstatus,
+      
     });
     res.status(201).json(content);
   }

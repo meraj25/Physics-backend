@@ -1,6 +1,7 @@
+import { create } from "domain";
 import { link } from "fs";
 import mongoose from "mongoose";
-import { string } from "zod";
+import { date, string } from "zod";
 
 const contentSchema = new mongoose.Schema({
 
@@ -34,8 +35,13 @@ const contentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+
   
-});
+},{ timestamps: true });
 
 const Content = mongoose.model("Content", contentSchema);
 

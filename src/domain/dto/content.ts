@@ -1,4 +1,5 @@
 
+import { create } from "domain";
 import { z } from "zod";
 
 
@@ -10,6 +11,7 @@ const CreateContentDTO = z.object({
   assignment: z.string().min(1),
   description: z.string().min(1),
   paymentstatus: z.string().min(1),
+  createdAt: z.date().optional(),
 });
 
 export { CreateContentDTO };

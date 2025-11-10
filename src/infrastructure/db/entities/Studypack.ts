@@ -12,6 +12,10 @@ const studypackSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  topic: {
+    type: String,
+    required: false,
+  },
   paymentstatus: {
     type: String,
     required: true,
@@ -19,7 +23,9 @@ const studypackSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
-  }
+  },
+  
+  
 });
 
 const StudyPack = mongoose.model("StudyPack", studypackSchema);
