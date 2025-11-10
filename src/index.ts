@@ -17,12 +17,7 @@ app.use(express.json());
 
 app.use(clerkMiddleware());
 
-app.use(cors({ 
-  origin: process.env.FRONTEND_URL,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-
-}));
+app.use(cors({ origin: "http://localhost:5173" }));
 
 app.use('/api/contents', ContentRouter);
 app.use('/api/categories', CategoryRouter);
@@ -37,5 +32,7 @@ connectDB();
 
 
 const port = process.env.PORT || 8000;
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
 
