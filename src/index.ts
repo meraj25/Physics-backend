@@ -8,6 +8,7 @@ import YearRouter from './api/year';
 import globalErrorHandlingMiddleware from './api/middleware/global-error-handling-middleware';
 import StudyPackRouter from './api/studypack';
 import HeadingsRouter from './api/headings';
+import PaymentRouter from './api/payment';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
 
@@ -25,6 +26,7 @@ app.use('/api/topics', TopicRouter);
 app.use('/api/years', YearRouter);
 app.use('/api/studyPacks', StudyPackRouter);
 app.use('/api/headings', HeadingsRouter);
+app.use('/api/payments', PaymentRouter);
 
 app.use(globalErrorHandlingMiddleware);
 
