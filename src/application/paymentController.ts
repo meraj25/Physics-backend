@@ -21,11 +21,7 @@ const generateHash = (
   const hash = crypto
     .createHash('md5')
     .update(
-      `${merchantId}${orderId}${amount}${currency}${crypto
-        .createHash('md5')
-        .update(merchantSecret)
-        .digest('hex')
-        .toUpperCase()}`
+      `${merchantId}${orderId}${amount}${currency}${merchantSecret.toUpperCase()}`  // ✅ USE SECRET DIRECTLY
     )
     .digest('hex')
     .toUpperCase();
@@ -126,16 +122,12 @@ const paymentNotify = async (
     } = req.body;
 
     const localHash = crypto
-      .createHash('md5')
-      .update(
-        `${merchant_id}${order_id}${payhere_amount}${payhere_currency}${status_code}${crypto
-          .createHash('md5')
-          .update(PAYHERE_MERCHANT_SECRET)
-          .digest('hex')
-          .toUpperCase()}`
-      )
-      .digest('hex')
-      .toUpperCase();
+     .createHash('md5')
+  .update(
+    `${merchant_id}${order_id}${payhere_amount}${payhere_currency}${status_code}${PAYHERE_MERCHANT_SECRET.toUpperCase()}`  // ✅ USE SECRET DIRECTLY
+  )
+  .digest('hex')
+  .toUpperCase();
 
     if (localHash !== md5sig) {
       console.error('Hash verification failed');
