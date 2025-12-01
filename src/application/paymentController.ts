@@ -18,13 +18,28 @@ const generateHash = (
   currency: string,
   merchantSecret: string
 ): string => {
-  const hash = crypto
+  const hashedSecret = crypto
     .createHash('md5')
-    .update(
-      `${merchantId}${orderId}${amount}${currency}${merchantSecret.toUpperCase()}`  // ✅ USE SECRET DIRECTLY
-    )
+    .update(merchantSecret)
     .digest('hex')
     .toUpperCase();
+
+  // Step 2: Create final hash using the hashed secret
+  const hash = crypto
+    .createHash('md5')
+    .update(`${merchantId}${orderId}${amount}${currency}${hashedSecret}`)
+    .digest('hex')
+    .toUpperCase();
+
+  // Debug logging
+  console.log('🔐 Hash Generation Debug:');
+  console.log('Merchant ID:', merchantId);
+  console.log('Order ID:', orderId);
+  console.log('Amount:', amount);
+  console.log('Currency:', currency);
+  console.log('Hashed Secret:', hashedSecret.substring(0, 10) + '...');
+  console.log('Final Hash:', hash);
+
   return hash;
 };
 
