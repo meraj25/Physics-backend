@@ -1,12 +1,12 @@
-import Content from "../infrastructure/db/entities/Content";
+import MContent from "../infrastructure/db/entities/MContent";
 import Purchase from "../infrastructure/db/entities/Purchase";
 import { Request, Response, NextFunction } from "express";
 import ValidationError from "../domain/errors/validation-error";
 import NotFoundError from "../domain/errors/not-found-error";
-import  CreateContentDTO  from "../domain/dto/content";
+import CreateMcontentDTO from "../domain/dto/mcontent";
 import { getAuth } from "@clerk/express";
 
-const getAllContent = async (req: Request, res: Response, next: NextFunction) => {
+const getAllMcontent = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const categoryId = req.query.categoryId;
     const topicId = req.query.topicId;
@@ -14,16 +14,16 @@ const getAllContent = async (req: Request, res: Response, next: NextFunction) =>
      const {userId} = getAuth(req);
  // Get userId from Clerk
 
-    let contents;
+    let mcontents;
 
     if (categoryId) {
-      contents = await Content.find({ categoryId });
+      mcontents = await MContent.find({ categoryId });
     } else if (topicId) {
-      contents = await Content.find({ topicId });
+      mcontents = await MContent.find({ topicId });
     } else if (yearId) {
-      contents = await Content.find({ yearId });
+      mcontents = await MContent.find({ yearId });
     } else {
-      contents = await Content.find();
+      mcontents = await MContent.find();
     }
 
     // If user is authenticated, check which paid content they've purchased
@@ -34,28 +34,28 @@ const getAllContent = async (req: Request, res: Response, next: NextFunction) =>
       }).distinct('contentId');
 
       // Add purchased flag to each content
-      const contentsWithPurchaseStatus = contents.map((content) => {
-        const contentObj = content.toObject();
+      const mcontentsWithPurchaseStatus = mcontents.map((mcontent) => {
+        const mcontentObj = mcontent.toObject();
         return {
-          ...contentObj,
+          ...mcontentObj,
           isPurchased: purchasedContentIds.some(
-            (id) => id.toString() === content._id.toString()
+            (id) => id.toString() === mcontent._id.toString()
           ),
         };
       });
 
-      return res.json(contentsWithPurchaseStatus);
+      return res.json(mcontentsWithPurchaseStatus);
     }
 
-    res.json(contents);
+    res.json(mcontents);
   } catch (error) {
     next(error);
   }
 };
 
-const createContent = async (req: Request, res: Response, next: NextFunction) => {
+const createMcontent = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const result = CreateContentDTO.safeParse(req.body);
+    const result = CreateMcontentDTO.safeParse(req.body);
     if (!result.success) {
       throw new ValidationError(result.error.message);
     }
@@ -71,7 +71,7 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       price 
     } = result.data;
 
-    const content = await Content.create({
+    const mcontent = await MContent.create({
       yearId,
       categoryId,
       topic,
@@ -82,17 +82,17 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       price: price || 0,
     });
     
-    res.status(201).json(content);
+    res.status(201).json(mcontent);
   } catch (error) {
     next(error);
   }
 };
 
-const deleteContent = async (req: Request, res: Response, next: NextFunction) => {
+const deleteMcontent = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const deletedContent = await Content.findByIdAndDelete(req.params.id);
+    const deletedMcontent = await MContent.findByIdAndDelete(req.params.id);
 
-    if (!deletedContent) {
+    if (!deletedMcontent) {
       throw new NotFoundError("please select a valid content");
     }
 
@@ -103,7 +103,7 @@ const deleteContent = async (req: Request, res: Response, next: NextFunction) =>
 };
 
 export { 
-  getAllContent, 
-  createContent, 
-  deleteContent 
+  getAllMcontent , 
+  createMcontent, 
+  deleteMcontent  
 };

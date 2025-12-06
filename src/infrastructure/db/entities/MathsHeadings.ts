@@ -16,4 +16,5 @@ const mathsheadingsSchema = new mongoose.Schema({
 });
 
 const Maths_Headings = mongoose.model("Maths_Headings", mathsheadingsSchema);
+
 export default Maths_Headings;

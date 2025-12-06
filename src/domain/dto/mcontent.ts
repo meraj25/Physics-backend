@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { de } from 'zod/v4/locales';
 
-const CreateContentDTO = z.object({
+
+ const CreateMcontentDTO = z.object({
   yearId: z.string().min(1, 'Year ID is required'),
   categoryId: z.string().min(1, 'Category ID is required'),
   topic: z.string().min(1, 'Topic is required'),
@@ -12,4 +12,4 @@ const CreateContentDTO = z.object({
   price: z.number().min(0, 'Price must be a positive number').optional().default(0),
 });
 
-export default CreateContentDTO;
+export default CreateMcontentDTO;
