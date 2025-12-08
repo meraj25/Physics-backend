@@ -14,6 +14,11 @@ import PEContentRouter from './api/pecontent';
 import PapersRouter from './api/papers';
 import MathsContentRouter from './api/mathscontent';
 import McontentRouter from './api/mcontent';
+import ResultRouter from './api/result';
+import MathsResultRouter from './api/mathsresult';
+import SPResultRouter from './api/spresult';
+import MSPResultRouter from './api/mspresult';
+import PEResultRouter from './api/peresult';
 import PaymentRouter from './api/payment';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
@@ -40,6 +45,11 @@ app.use('/api/pecontents',PEContentRouter);
 app.use('/api/papers',PapersRouter);
 app.use('/api/mathscontents',MathsContentRouter);
 app.use('/api/mcontents',McontentRouter);
+app.use('/api/results',ResultRouter);
+app.use('/api/mathsresults',MathsResultRouter);
+app.use('/api/spresults',SPResultRouter);
+app.use('/api/mspresults',MSPResultRouter);
+app.use('/api/peresults',PEResultRouter);
 
 app.use(globalErrorHandlingMiddleware);
 
