@@ -20,6 +20,7 @@ import SPResultRouter from './api/spresult';
 import MSPResultRouter from './api/mspresult';
 import PEResultRouter from './api/peresult';
 import PaymentRouter from './api/payment';
+import PurchaseRouter from './api/purchase';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
 
@@ -50,6 +51,7 @@ app.use('/api/mathsresults',MathsResultRouter);
 app.use('/api/spresults',SPResultRouter);
 app.use('/api/mspresults',MSPResultRouter);
 app.use('/api/peresults',PEResultRouter);
+app.use('/api/purchases',PurchaseRouter);
 
 app.use(globalErrorHandlingMiddleware);
 
