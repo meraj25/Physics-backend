@@ -2,6 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import crypto from 'crypto';
 import Purchase from '../infrastructure/db/entities/Purchase';
 import Content from '../infrastructure/db/entities/Content';
+import MContent from '../infrastructure/db/entities/MContent';
+import MathsContent from '../infrastructure/db/entities/MathsContent';
+import PEContent from '../infrastructure/db/entities/PEContent';
+import StudyPack from '../infrastructure/db/entities/Studypack';
 import NotFoundError from '../domain/errors/not-found-error';
 import ValidationError from '../domain/errors/validation-error';
 import { getAuth } from '@clerk/express';
@@ -61,7 +65,22 @@ const initiatePayment = async (
       throw new ValidationError('Content ID is required');
     }
 
-    const content = await Content.findById(contentId);
+    // Try to find the content across multiple content collections/models
+    const models: any[] = [Content, MContent, MathsContent, PEContent, StudyPack];
+    let content: any = null;
+    let contentSource: string | null = null;
+
+    for (const Model of models) {
+      // @ts-ignore - dynamic model lookup
+      const doc = await Model.findById(contentId);
+      if (doc) {
+        content = doc;
+        // modelName exists on Mongoose models; fall back to collection name
+        contentSource = (Model && (Model.modelName || (Model.collection && Model.collection.name))) || null;
+        break;
+      }
+    }
+
     if (!content) {
       throw new NotFoundError('Content not found');
     }
