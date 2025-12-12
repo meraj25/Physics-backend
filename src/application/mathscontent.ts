@@ -24,7 +24,7 @@ const createMathsContent = async (req: Request, res: Response, next: NextFunctio
       throw new ValidationError(result.error.message);
     }
 
-    const { heading, assignment,topic, link, paymentstatus } = result.data;
+    const { heading, assignment,topic, link, paymentstatus, price } = result.data;
 
     const mathscontent = await MathsContent.create({
      
@@ -32,7 +32,8 @@ const createMathsContent = async (req: Request, res: Response, next: NextFunctio
       assignment,
       topic,
       paymentstatus,
-      link
+      link,
+      price: price || 0,
     });
     res.status(201).json(mathscontent);
   } catch (error) {

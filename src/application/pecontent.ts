@@ -25,7 +25,7 @@ const createPEContent = async (req: Request, res: Response, next: NextFunction) 
       throw new ValidationError(result.error.message);
     }
 
-    const { heading, assignment,topic, link, paymentstatus } = result.data;
+    const { heading, assignment,topic, link, paymentstatus, price } = result.data;
 
     const pecontent = await PEContent.create({
      
@@ -33,7 +33,8 @@ const createPEContent = async (req: Request, res: Response, next: NextFunction) 
       assignment,
       topic,
       paymentstatus,
-      link
+      link,
+      price: price || 0,
     });
     res.status(201).json(pecontent);
   } catch (error) {
