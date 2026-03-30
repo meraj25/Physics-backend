@@ -3,14 +3,17 @@ import mongoose from "mongoose";
 const purchasesSchema = new mongoose.Schema({
   userId: {
     type: String,
-    required: true,
+    required: false,
   },
-  ContentId:{
+  username: {
+    type: String,
+    required: false,
+  },
+  contentId: {
     type: String,
     required: true,
   },
-  amount: { type: Number, required: true },
-
+  amount: { type: Number, required: false },
   paidAt: { type: Date, default: Date.now },
 });
 
