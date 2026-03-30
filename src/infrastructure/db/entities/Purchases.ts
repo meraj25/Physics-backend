@@ -13,6 +13,12 @@ const purchasesSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  orderId: {
+    type: String,
+    required: false,
+    unique: true,
+    sparse: true,  // allows multiple documents with null orderId
+  },
   amount: { type: Number, required: false },
   paidAt: { type: Date, default: Date.now },
 });
