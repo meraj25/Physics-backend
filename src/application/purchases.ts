@@ -14,15 +14,11 @@ const getAllPurchases = async (
     next(error);
   }
 };
-const createPurchase = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const createPurchase = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const newPurchases = req.body;
-    if (!newPurchases.userId) {
-      throw new ValidationError("User ID is required");
+    if (!newPurchases.userId && !newPurchases.username) {
+      throw new ValidationError("Either userId or username is required");
     }
     await Purchases.create(newPurchases);
     res.status(201).json(newPurchases);
