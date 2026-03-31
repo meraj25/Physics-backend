@@ -20,8 +20,11 @@ const createPurchase = async (req: Request, res: Response, next: NextFunction) =
     if (!newPurchases.userId && !newPurchases.username) {
       throw new ValidationError("Either userId or username is required");
     }
-    await Purchases.create(newPurchases);
-    res.status(201).json(newPurchases);
+    const purchase = await Purchases.create({
+      ...newPurchases,
+      status: 'completed', // ← always completed when admin manually creates
+    });
+    res.status(201).json(purchase);
   } catch (error) {
     next(error);
   }
