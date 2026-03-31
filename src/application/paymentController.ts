@@ -155,11 +155,15 @@ const paymentNotify = async (
       method,
     } = req.body;
 
-    const localHash = crypto
-     .createHash('md5')
-  .update(
-    `${merchant_id}${order_id}${payhere_amount}${payhere_currency}${status_code}${PAYHERE_MERCHANT_SECRET.toUpperCase()}`  // ✅ USE SECRET DIRECTLY
-  )
+    const hashedSecret = crypto
+  .createHash('md5')
+  .update(PAYHERE_MERCHANT_SECRET)
+  .digest('hex')
+  .toUpperCase();
+
+const localHash = crypto
+  .createHash('md5')
+  .update(`${merchant_id}${order_id}${payhere_amount}${payhere_currency}${status_code}${hashedSecret}`)
   .digest('hex')
   .toUpperCase();
 
