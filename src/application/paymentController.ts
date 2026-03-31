@@ -57,9 +57,14 @@ const initiatePayment = async (
     const { contentId } = req.body;
     const {userId} = getAuth(req);
 
+    console.log('📦 initiatePayment called')
+    console.log('contentId:', contentId)
+    console.log('userId:', userId)
+
     if (!userId) {
       throw new ValidationError('User not authenticated');
     }
+    
 
     if (!contentId) {
       throw new ValidationError('Content ID is required');
@@ -79,6 +84,11 @@ const initiatePayment = async (
         contentSource = (Model && (Model.modelName || (Model.collection && Model.collection.name))) || null;
         break;
       }
+    }
+    if (content) {
+      console.log('✅ Content found:', content.topic)
+      console.log('💰 paymentstatus:', content.paymentstatus)
+      console.log('💵 price:', content.price)
     }
 
     if (!content) {
@@ -113,7 +123,7 @@ const initiatePayment = async (
       currency,
       PAYHERE_MERCHANT_SECRET
     );
-
+    console.log('🛒 Creating purchase...')
     const purchase = await Purchase.create({
       userId,
       contentId,
@@ -122,6 +132,7 @@ const initiatePayment = async (
       orderId,
       status: 'pending',
     });
+    console.log('✅ Purchase created:', purchase._id)
 
     res.status(200).json({
       orderId,
