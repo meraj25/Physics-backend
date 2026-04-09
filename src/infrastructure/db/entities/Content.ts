@@ -27,6 +27,10 @@ const contentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  pre_content: {
+    type: String,
+    required: true,
+  },
     paymentstatus: {
     type: String,
     required: true,

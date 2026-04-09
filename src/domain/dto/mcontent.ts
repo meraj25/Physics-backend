@@ -8,6 +8,7 @@ import { z } from 'zod';
   assignment: z.string().min(1, 'Assignment is required'),
   link: z.string().min(1, 'Link is required'),
   description: z.string().min(1, 'Description is required'),
+  pre_content: z.string().min(1, 'Pre-content is required'),
   paymentstatus: z.string().min(1, 'Payment status is required'),
   price: z.number().min(0, 'Price must be a positive number').optional().default(0),
 });

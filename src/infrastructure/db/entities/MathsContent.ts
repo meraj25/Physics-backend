@@ -16,6 +16,10 @@ const mathsContentSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
+  pre_content: {
+    type: String,
+    required: true,
+  },
   paymentstatus: {
     type: String,
     required: true,

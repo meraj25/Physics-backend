@@ -67,6 +67,7 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       assignment, 
       link, 
       description, 
+      pre_content,
       paymentstatus,
       price 
     } = result.data;
@@ -78,6 +79,7 @@ const createContent = async (req: Request, res: Response, next: NextFunction) =>
       assignment,
       link,
       description,
+      pre_content,
       paymentstatus,
       price: price || 0,
     });

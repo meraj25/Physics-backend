@@ -24,13 +24,14 @@ const createMathsContent = async (req: Request, res: Response, next: NextFunctio
       throw new ValidationError(result.error.message);
     }
 
-    const { heading, assignment,topic, link, paymentstatus, price } = result.data;
+    const { heading, assignment,topic,pre_content, link, paymentstatus, price } = result.data;
 
     const mathscontent = await MathsContent.create({
      
       heading ,
       assignment,
       topic,
+      pre_content,
       paymentstatus,
       link,
       price: price || 0,
