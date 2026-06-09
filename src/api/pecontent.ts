@@ -1,5 +1,5 @@
 import  express  from "express";
-import { getAllPEContent,createPEContent,deletePEContent } from "../application/pecontent";
+import { getAllPEContent,createPEContent,deletePEContent ,uploadthumbnail} from "../application/pecontent";
 
 
 
@@ -12,6 +12,10 @@ PEContentRouter
 PEContentRouter
   .route("/:id")
   .delete(deletePEContent)
+
+PEContentRouter
+  .route("/thumbnail")
+  .post(uploadthumbnail)
   
 
 

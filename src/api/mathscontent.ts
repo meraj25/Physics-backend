@@ -1,5 +1,5 @@
 import  express  from "express";
-import { getAllMathsContent,createMathsContent,deleteMathsContent } from "../application/mathscontent";
+import { getAllMathsContent,createMathsContent,deleteMathsContent ,uploadthumbnail} from "../application/mathscontent";
 
 
 
@@ -13,6 +13,10 @@ MathsContentRouter
 MathsContentRouter
   .route("/:id")
   .delete(deleteMathsContent)
+
+MathsContentRouter
+  .route("/thumbnail")
+  .post(uploadthumbnail)
   
 
 

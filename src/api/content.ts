@@ -2,6 +2,7 @@ import  express  from "express";
 import { getAllContent,
           createContent,
           deleteContent,
+          uploadthumbnail
 
  } from "../application/content";
 
@@ -17,6 +18,10 @@ ContentRouter
 ContentRouter
   .route("/:id")
   .delete(deleteContent)
+
+ContentRouter
+  .route("/thumbnail")
+  .post(uploadthumbnail)
 
 
 

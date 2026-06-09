@@ -1,5 +1,5 @@
 import  express  from "express";
-import { getAllPapers,createPapers,deletePapers } from "../application/papers";
+import { getAllPapers,createPapers,deletePapers,uploadthumbnail } from "../application/papers";
 
 
 
@@ -13,6 +13,10 @@ PapersRouter
 PapersRouter
   .route("/:id")
   .delete(deletePapers)
+
+PapersRouter
+  .route("/thumbnail")
+  .post(uploadthumbnail)
   
 
 

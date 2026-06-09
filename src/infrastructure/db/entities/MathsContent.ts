@@ -33,6 +33,10 @@ const mathsContentSchema = new mongoose.Schema({
     default: 0,
     min: 0,
   },
+  thumbnail_url:{
+    type: String,
+    required: true,
+  },
   
   createdAt: {
     type: Date,

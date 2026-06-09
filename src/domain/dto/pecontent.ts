@@ -12,6 +12,7 @@ const CreatePEDTO = z.object({
   paymentstatus: z.string().min(1),
   link: z.string().url().optional(),
    price: z.number().min(0, 'Price must be a positive number').optional().default(0),
+   thumbnail_url: z.string().min(1, 'Link is required'),
 
 });
 

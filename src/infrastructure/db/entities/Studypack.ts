@@ -38,6 +38,10 @@ const studypackSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  thumbnail_url:{
+    type: String,
+    required: true,
+  },
 
   
   

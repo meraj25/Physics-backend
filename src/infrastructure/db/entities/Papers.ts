@@ -21,6 +21,15 @@ const paperSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  thumbnail_url:{
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    default: 0,
+    min: 0,
+  },
   
   
 });

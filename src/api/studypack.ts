@@ -1,5 +1,5 @@
 import  express  from "express";
-import { getAllStudyPacks,createStudyPack, deleteStudyPack } from "../application/studypack";
+import { getAllStudyPacks,createStudyPack, deleteStudyPack ,uploadthumbnail} from "../application/studypack";
 
 
 
@@ -13,6 +13,10 @@ StudyPackRouter
 StudyPackRouter
   .route("/:id")
   .delete(deleteStudyPack)
+
+StudyPackRouter
+  .route("/thumbnail")
+  .post(uploadthumbnail)
   
 
 

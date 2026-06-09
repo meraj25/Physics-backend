@@ -1,5 +1,5 @@
 import  express  from "express";
-import { getAllMcontent , createMcontent ,deleteMcontent } from "../application/mcontent";
+import { getAllMcontent , createMcontent ,deleteMcontent,uploadthumbnail } from "../application/mcontent";
 
 
 const McontentRouter = express.Router();
@@ -12,6 +12,10 @@ McontentRouter
 McontentRouter
   .route("/:id")
   .delete(deleteMcontent)
+
+McontentRouter
+  .route("/thumbnail")
+  .post(uploadthumbnail)
 
 
 export default McontentRouter;

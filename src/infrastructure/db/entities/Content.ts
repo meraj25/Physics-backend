@@ -1,7 +1,6 @@
-import { create } from "domain";
-import { link } from "fs";
+
 import mongoose from "mongoose";
-import { date, string } from "zod";
+
 
 const contentSchema = new mongoose.Schema({
 
@@ -44,6 +43,11 @@ const contentSchema = new mongoose.Schema({
     default: 0,
     min: 0,
   },
+  thumbnail_url: {
+    type: String,
+    required: true,
+  },
+  
   
   createdAt: {
     type: Date,
