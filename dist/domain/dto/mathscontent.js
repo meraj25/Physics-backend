@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateMathsDTO = void 0;
-var zod_1 = require("zod");
-var CreateMathsDTO = zod_1.z.object({
+const zod_1 = require("zod");
+const CreateMathsDTO = zod_1.z.object({
     heading: zod_1.z.string().min(1),
     assignment: zod_1.z.string().min(1),
     topic: zod_1.z.string().min(1).optional(),

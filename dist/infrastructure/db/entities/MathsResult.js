@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importDefault(require("mongoose"));
-var mathsresultSchema = new mongoose_1.default.Schema({
+const mongoose_1 = __importDefault(require("mongoose"));
+const mathsresultSchema = new mongoose_1.default.Schema({
     contentId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "MContent",
@@ -19,6 +19,6 @@ var mathsresultSchema = new mongoose_1.default.Schema({
         required: true,
     },
 });
-var MathsResult = mongoose_1.default.model("MathsResult", mathsresultSchema);
+const MathsResult = mongoose_1.default.model("MathsResult", mathsresultSchema);
 exports.default = MathsResult;
 //# sourceMappingURL=MathsResult.js.map

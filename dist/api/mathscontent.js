@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var mathscontent_1 = require("../application/mathscontent");
-var MathsContentRouter = express_1.default.Router();
+const express_1 = __importDefault(require("express"));
+const mathscontent_1 = require("../application/mathscontent");
+const MathsContentRouter = express_1.default.Router();
 MathsContentRouter
     .route("/")
     .get(mathscontent_1.getAllMathsContent)

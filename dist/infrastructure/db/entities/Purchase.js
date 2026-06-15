@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importDefault(require("mongoose"));
-var purchaseSchema = new mongoose_1.default.Schema({
+const mongoose_1 = __importDefault(require("mongoose"));
+const purchaseSchema = new mongoose_1.default.Schema({
     userId: {
         type: String,
         required: true,
@@ -48,6 +48,6 @@ var purchaseSchema = new mongoose_1.default.Schema({
         type: String,
     },
 }, { timestamps: true });
-var Purchase = mongoose_1.default.model("Purchase", purchaseSchema);
+const Purchase = mongoose_1.default.model("Purchase", purchaseSchema);
 exports.default = Purchase;
 //# sourceMappingURL=Purchase.js.map

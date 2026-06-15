@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var express_1 = __importDefault(require("express"));
-var studypack_1 = require("../application/studypack");
-var StudyPackRouter = express_1.default.Router();
+const express_1 = __importDefault(require("express"));
+const studypack_1 = require("../application/studypack");
+const StudyPackRouter = express_1.default.Router();
 StudyPackRouter
     .route("/")
     .get(studypack_1.getAllStudyPacks)

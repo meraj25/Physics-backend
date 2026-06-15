@@ -3,8 +3,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var mongoose_1 = __importDefault(require("mongoose"));
-var contentSchema = new mongoose_1.default.Schema({
+const mongoose_1 = __importDefault(require("mongoose"));
+const contentSchema = new mongoose_1.default.Schema({
     yearId: {
         type: mongoose_1.default.Schema.Types.ObjectId,
         ref: "Year",
@@ -53,6 +53,6 @@ var contentSchema = new mongoose_1.default.Schema({
         default: Date.now,
     },
 }, { timestamps: true });
-var Content = mongoose_1.default.model("Content", contentSchema);
+const Content = mongoose_1.default.model("Content", contentSchema);
 exports.default = Content;
 //# sourceMappingURL=Content.js.map

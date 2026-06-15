@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var validation_error_1 = __importDefault(require("../../domain/errors/validation-error"));
-var not_found_error_1 = __importDefault(require("../../domain/errors/not-found-error"));
-var unauthorized_error_1 = __importDefault(require("../../domain/errors/unauthorized-error"));
-var globalErrorHandlingMiddleware = function (err, req, res, next) {
+const validation_error_1 = __importDefault(require("../../domain/errors/validation-error"));
+const not_found_error_1 = __importDefault(require("../../domain/errors/not-found-error"));
+const unauthorized_error_1 = __importDefault(require("../../domain/errors/unauthorized-error"));
+const globalErrorHandlingMiddleware = (err, req, res, next) => {
     console.log("=== ERROR CAUGHT ===");
     console.log("Error name:", err.name);
     console.log("Error message:", err.message);

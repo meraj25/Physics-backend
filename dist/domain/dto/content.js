@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var zod_1 = require("zod");
-var CreateContentDTO = zod_1.z.object({
+const zod_1 = require("zod");
+const CreateContentDTO = zod_1.z.object({
     yearId: zod_1.z.string().min(1, 'Year ID is required'),
     categoryId: zod_1.z.string().min(1, 'Category ID is required'),
     topic: zod_1.z.string().min(1, 'Topic is required'),
