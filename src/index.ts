@@ -32,7 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(clerkMiddleware());
 
-app.use(cors({ origin: "https://physics-by-sanjaya.netlify.app" }));
+app.use(cors({ origin: "https://sanjayasuriya.online" }));
 
 app.use('/api/contents', ContentRouter);
 app.use('/api/categories', CategoryRouter);
