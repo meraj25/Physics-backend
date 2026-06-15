@@ -27,11 +27,24 @@ var contentSchema = new mongoose_1.default.Schema({
         type: String,
         required: true,
     },
+    pre_content: {
+        type: String,
+        required: true,
+    },
     paymentstatus: {
         type: String,
         required: true,
     },
     link: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+    thumbnail_url: {
         type: String,
         required: true,
     },

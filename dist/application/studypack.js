@@ -39,11 +39,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteStudyPack = exports.createStudyPack = exports.getAllStudyPacks = void 0;
+exports.uploadthumbnail = exports.deleteStudyPack = exports.createStudyPack = exports.getAllStudyPacks = void 0;
 var Studypack_1 = __importDefault(require("../infrastructure/db/entities/Studypack"));
 var validation_error_1 = __importDefault(require("../domain/errors/validation-error"));
 var studypack_1 = require("../domain/dto/studypack");
 var not_found_error_1 = __importDefault(require("../domain/errors/not-found-error"));
+var s3_1 = __importDefault(require("../infrastructure/s3"));
+var crypto_1 = require("crypto");
+var s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
+var client_s3_1 = require("@aws-sdk/client-s3");
 var getAllStudyPacks = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var studyPack, error_1;
     return __generator(this, function (_a) {
@@ -65,7 +69,7 @@ var getAllStudyPacks = function (req, res, next) { return __awaiter(void 0, void
 }); };
 exports.getAllStudyPacks = getAllStudyPacks;
 var createStudyPack = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, _a, heading, assignment, topic, link, paymentstatus, studyPack, error_2;
+    var result, _a, heading, assignment, topic, pre_content, link, paymentstatus, price, thumbnail_url, studyPack, error_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -74,13 +78,16 @@ var createStudyPack = function (req, res, next) { return __awaiter(void 0, void 
                 if (!result.success) {
                     throw new validation_error_1.default(result.error.message);
                 }
-                _a = result.data, heading = _a.heading, assignment = _a.assignment, topic = _a.topic, link = _a.link, paymentstatus = _a.paymentstatus;
+                _a = result.data, heading = _a.heading, assignment = _a.assignment, topic = _a.topic, pre_content = _a.pre_content, link = _a.link, paymentstatus = _a.paymentstatus, price = _a.price, thumbnail_url = _a.thumbnail_url;
                 return [4 /*yield*/, Studypack_1.default.create({
                         heading: heading,
                         assignment: assignment,
                         topic: topic,
+                        pre_content: pre_content,
                         paymentstatus: paymentstatus,
-                        link: link
+                        link: link,
+                        price: price || 0,
+                        thumbnail_url: thumbnail_url
                     })];
             case 1:
                 studyPack = _b.sent();
@@ -119,4 +126,38 @@ var deleteStudyPack = function (req, res, next) { return __awaiter(void 0, void 
     });
 }); };
 exports.deleteStudyPack = deleteStudyPack;
+var uploadthumbnail = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var body, fileType, id, url, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                body = req.body;
+                fileType = body.fileType;
+                id = (0, crypto_1.randomUUID)();
+                return [4 /*yield*/, (0, s3_request_presigner_1.getSignedUrl)(s3_1.default, new client_s3_1.PutObjectCommand({
+                        Bucket: process.env.CLOUDFLARE_BUCKET_NAME,
+                        Key: id,
+                        ContentType: fileType,
+                    }), {
+                        expiresIn: 60,
+                    })];
+            case 1:
+                url = _a.sent();
+                res
+                    .status(200)
+                    .json({
+                    url: url,
+                    publicURL: "".concat(process.env.CLOUDFLARE_PUBLIC_DOMAIN, "/").concat(id),
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                error_4 = _a.sent();
+                next(error_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.uploadthumbnail = uploadthumbnail;
 //# sourceMappingURL=studypack.js.map

@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -39,66 +50,85 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteContent = exports.createContent = exports.getAllContent = void 0;
+exports.uploadthumbnail = exports.deleteContent = exports.createContent = exports.getAllContent = void 0;
 var Content_1 = __importDefault(require("../infrastructure/db/entities/Content"));
+var Purchase_1 = __importDefault(require("../infrastructure/db/entities/Purchase"));
 var validation_error_1 = __importDefault(require("../domain/errors/validation-error"));
 var not_found_error_1 = __importDefault(require("../domain/errors/not-found-error"));
-var content_1 = require("../domain/dto/content");
+var content_1 = __importDefault(require("../domain/dto/content"));
+var express_1 = require("@clerk/express");
+var crypto_1 = require("crypto");
+var s3_request_presigner_1 = require("@aws-sdk/s3-request-presigner");
+var client_s3_1 = require("@aws-sdk/client-s3");
+var s3_1 = __importDefault(require("../infrastructure/s3"));
 var getAllContent = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var categoryId, topicId, yearId, contents, contents, contents, contents, error_1;
+    var categoryId, topicId, yearId, userId, contents, purchasedContentIds_1, contentsWithPurchaseStatus, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 9, , 10]);
+                _a.trys.push([0, 11, , 12]);
                 categoryId = req.query.categoryId;
                 topicId = req.query.topicId;
                 yearId = req.query.yearId;
+                userId = (0, express_1.getAuth)(req).userId;
+                contents = void 0;
                 if (!categoryId) return [3 /*break*/, 2];
                 return [4 /*yield*/, Content_1.default.find({ categoryId: categoryId })];
             case 1:
                 contents = _a.sent();
-                res.json(contents);
                 return [3 /*break*/, 8];
             case 2:
                 if (!topicId) return [3 /*break*/, 4];
                 return [4 /*yield*/, Content_1.default.find({ topicId: topicId })];
             case 3:
                 contents = _a.sent();
-                res.json(contents);
                 return [3 /*break*/, 8];
             case 4:
                 if (!yearId) return [3 /*break*/, 6];
                 return [4 /*yield*/, Content_1.default.find({ yearId: yearId })];
             case 5:
                 contents = _a.sent();
-                res.json(contents);
                 return [3 /*break*/, 8];
             case 6: return [4 /*yield*/, Content_1.default.find()];
             case 7:
                 contents = _a.sent();
-                res.json(contents);
                 _a.label = 8;
-            case 8: return [3 /*break*/, 10];
+            case 8:
+                if (!userId) return [3 /*break*/, 10];
+                return [4 /*yield*/, Purchase_1.default.find({
+                        userId: userId,
+                        status: 'completed',
+                    }).distinct('contentId')];
             case 9:
+                purchasedContentIds_1 = _a.sent();
+                contentsWithPurchaseStatus = contents.map(function (content) {
+                    var contentObj = content.toObject();
+                    return __assign(__assign({}, contentObj), { isPurchased: purchasedContentIds_1.some(function (id) { return id.toString() === content._id.toString(); }) });
+                });
+                return [2 /*return*/, res.json(contentsWithPurchaseStatus)];
+            case 10:
+                res.json(contents);
+                return [3 /*break*/, 12];
+            case 11:
                 error_1 = _a.sent();
                 next(error_1);
-                return [3 /*break*/, 10];
-            case 10: return [2 /*return*/];
+                return [3 /*break*/, 12];
+            case 12: return [2 /*return*/];
         }
     });
 }); };
 exports.getAllContent = getAllContent;
 var createContent = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, _a, yearId, categoryId, topic, assignment, link, description, paymentstatus, content, error_2;
+    var result, _a, yearId, categoryId, topic, assignment, link, description, pre_content, paymentstatus, price, thumbnail_url, content, error_2;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 2, , 3]);
-                result = content_1.CreateContentDTO.safeParse(req.body);
+                result = content_1.default.safeParse(req.body);
                 if (!result.success) {
                     throw new validation_error_1.default(result.error.message);
                 }
-                _a = result.data, yearId = _a.yearId, categoryId = _a.categoryId, topic = _a.topic, assignment = _a.assignment, link = _a.link, description = _a.description, paymentstatus = _a.paymentstatus;
+                _a = result.data, yearId = _a.yearId, categoryId = _a.categoryId, topic = _a.topic, assignment = _a.assignment, link = _a.link, description = _a.description, pre_content = _a.pre_content, paymentstatus = _a.paymentstatus, price = _a.price, thumbnail_url = _a.thumbnail_url;
                 return [4 /*yield*/, Content_1.default.create({
                         yearId: yearId,
                         categoryId: categoryId,
@@ -106,7 +136,10 @@ var createContent = function (req, res, next) { return __awaiter(void 0, void 0,
                         assignment: assignment,
                         link: link,
                         description: description,
+                        pre_content: pre_content,
                         paymentstatus: paymentstatus,
+                        price: price || 0,
+                        thumbnail_url: thumbnail_url
                     })];
             case 1:
                 content = _b.sent();
@@ -122,15 +155,15 @@ var createContent = function (req, res, next) { return __awaiter(void 0, void 0,
 }); };
 exports.createContent = createContent;
 var deleteContent = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var deleteContent_1, error_3;
+    var deletedContent, error_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 return [4 /*yield*/, Content_1.default.findByIdAndDelete(req.params.id)];
             case 1:
-                deleteContent_1 = _a.sent();
-                if (!deleteContent_1) {
+                deletedContent = _a.sent();
+                if (!deletedContent) {
                     throw new not_found_error_1.default("please select a valid content");
                 }
                 res.status(200).json({ message: "Content deleted successfully" });
@@ -144,4 +177,38 @@ var deleteContent = function (req, res, next) { return __awaiter(void 0, void 0,
     });
 }); };
 exports.deleteContent = deleteContent;
+var uploadthumbnail = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var body, fileType, id, url, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                body = req.body;
+                fileType = body.fileType;
+                id = (0, crypto_1.randomUUID)();
+                return [4 /*yield*/, (0, s3_request_presigner_1.getSignedUrl)(s3_1.default, new client_s3_1.PutObjectCommand({
+                        Bucket: process.env.CLOUDFLARE_BUCKET_NAME,
+                        Key: id,
+                        ContentType: fileType,
+                    }), {
+                        expiresIn: 60,
+                    })];
+            case 1:
+                url = _a.sent();
+                res
+                    .status(200)
+                    .json({
+                    url: url,
+                    publicURL: "".concat(process.env.CLOUDFLARE_PUBLIC_DOMAIN, "/").concat(id),
+                });
+                return [3 /*break*/, 3];
+            case 2:
+                error_4 = _a.sent();
+                next(error_4);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.uploadthumbnail = uploadthumbnail;
 //# sourceMappingURL=content.js.map

@@ -13,5 +13,8 @@ ContentRouter
 ContentRouter
     .route("/:id")
     .delete(content_1.deleteContent);
+ContentRouter
+    .route("/thumbnail")
+    .post(content_1.uploadthumbnail);
 exports.default = ContentRouter;
 //# sourceMappingURL=content.js.map

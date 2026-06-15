@@ -13,5 +13,8 @@ StudyPackRouter
 StudyPackRouter
     .route("/:id")
     .delete(studypack_1.deleteStudyPack);
+StudyPackRouter
+    .route("/thumbnail")
+    .post(studypack_1.uploadthumbnail);
 exports.default = StudyPackRouter;
 //# sourceMappingURL=studypack.js.map

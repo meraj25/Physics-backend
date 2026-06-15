@@ -18,11 +18,28 @@ var studypackSchema = new mongoose_1.default.Schema({
         type: String,
         required: false,
     },
+    pre_content: {
+        type: String,
+        required: true,
+    },
     paymentstatus: {
         type: String,
         required: true,
     },
     link: {
+        type: String,
+        required: true,
+    },
+    price: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    thumbnail_url: {
         type: String,
         required: true,
     },
