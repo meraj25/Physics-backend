@@ -55,6 +55,8 @@ const initiatePayment = async (
   next: NextFunction
 ) => {
   try {
+      console.log('🔑 Auth header:', req.headers.authorization?.substring(0, 30));
+    console.log('🔑 getAuth result:', JSON.stringify(getAuth(req)));
     const { contentId } = req.body;
     const {userId} = getAuth(req);
 
