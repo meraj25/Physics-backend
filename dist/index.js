@@ -37,6 +37,10 @@ app.use((0, cors_1.default)({
     origin: "https://sanjayasuriya.online",
 }));
 app.use((0, express_2.clerkMiddleware)());
+app.use((req, res, next) => {
+    console.log(`📨 ${req.method} ${req.path}`);
+    next();
+});
 app.use('/api/contents', content_1.default);
 app.use('/api/categories', category_1.default);
 app.use('/api/topics', headings_1.default);
