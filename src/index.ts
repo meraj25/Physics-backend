@@ -24,6 +24,11 @@ import PurchasesRouter from './api/purchase';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
 
+console.log('ENV CHECK:', {
+  PORT: process.env.PORT,
+  MONGODB_URI: process.env.MONGODB_URI,
+  CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+});
 
 const app = express();
 

@@ -28,6 +28,11 @@ const payment_1 = __importDefault(require("./api/payment"));
 const purchase_1 = __importDefault(require("./api/purchase"));
 const cors_1 = __importDefault(require("cors"));
 const express_2 = require("@clerk/express");
+console.log('ENV CHECK:', {
+    PORT: process.env.PORT,
+    MONGODB_URI: process.env.MONGODB_URI,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+});
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
