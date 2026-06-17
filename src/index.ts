@@ -23,15 +23,18 @@ import PaymentRouter from './api/payment';
 import PurchasesRouter from './api/purchase';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
+import { getAuth } from '@clerk/express';
 
-console.log('ENV CHECK:', {
-  PORT: process.env.PORT,
-  MONGODB_URI: process.env.MONGODB_URI,
-  CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
-});
+
 
 const app = express();
 
+app.get('/api/test-auth', (req, res) => {
+  const { userId } = getAuth(req);
+  console.log('userId:', userId);
+  console.log('headers:', req.headers.authorization);
+  res.json({ userId, hasAuth: !!req.headers.authorization });
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

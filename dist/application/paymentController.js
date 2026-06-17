@@ -17,7 +17,7 @@ const express_1 = require("@clerk/express");
 // PayHere configuration
 const PAYHERE_MERCHANT_ID = process.env.PAYHERE_MERCHANT_ID || 'YOUR_MERCHANT_ID';
 const PAYHERE_MERCHANT_SECRET = process.env.PAYHERE_MERCHANT_SECRET || 'YOUR_MERCHANT_SECRET';
-const PAYHERE_MODE = process.env.PAYHERE_MODE || 'sandbox';
+const PAYHERE_MODE = process.env.PAYHERE_MODE || 'live';
 // Generate MD5 hash for PayHere
 const generateHash = (merchantId, orderId, amount, currency, merchantSecret) => {
     const hashedSecret = crypto_1.default

@@ -8,11 +8,12 @@ import PEContent from '../infrastructure/db/entities/PEContent';
 import StudyPack from '../infrastructure/db/entities/Studypack';
 import NotFoundError from '../domain/errors/not-found-error';
 import ValidationError from '../domain/errors/validation-error';
-import { getAuth } from '@clerk/express';
+import {getAuth} from "@clerk/express";
+
 // PayHere configuration
 const PAYHERE_MERCHANT_ID = process.env.PAYHERE_MERCHANT_ID || 'YOUR_MERCHANT_ID';
 const PAYHERE_MERCHANT_SECRET = process.env.PAYHERE_MERCHANT_SECRET || 'YOUR_MERCHANT_SECRET';
-const PAYHERE_MODE = process.env.PAYHERE_MODE || 'sandbox';
+const PAYHERE_MODE = process.env.PAYHERE_MODE || 'live';
 
 // Generate MD5 hash for PayHere
 const generateHash = (
