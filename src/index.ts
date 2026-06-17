@@ -30,9 +30,16 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cors({ 
+  origin: "https://sanjayasuriya.online",
+  allowedHeaders: ['Content-Type', 'Authorization'], 
+  methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH', 'OPTIONS'],
+  credentials: true,
+}));
+
 app.use(clerkMiddleware());
 
-app.use(cors({ origin: "https://sanjayasuriya.online" }));
+
 
 app.use('/api/contents', ContentRouter);
 app.use('/api/categories', CategoryRouter);
