@@ -31,8 +31,13 @@ const express_2 = require("@clerk/express");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
+app.use((0, cors_1.default)({
+    origin: "https://sanjayasuriya.online",
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    credentials: true,
+}));
 app.use((0, express_2.clerkMiddleware)());
-app.use((0, cors_1.default)({ origin: "https://sanjayasuriya.online" }));
 app.use('/api/contents', content_1.default);
 app.use('/api/categories', category_1.default);
 app.use('/api/topics', headings_1.default);
