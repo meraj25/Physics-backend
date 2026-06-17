@@ -28,21 +28,13 @@ const payment_1 = __importDefault(require("./api/payment"));
 const purchase_1 = __importDefault(require("./api/purchase"));
 const cors_1 = __importDefault(require("cors"));
 const express_2 = require("@clerk/express");
-const express_3 = require("@clerk/express");
+console.log('CLERK_SECRET_KEY:', process.env.CLERK_SECRET_KEY ? 'SET' : 'NOT SET');
+console.log('CLERK_PUBLISHABLE_KEY:', process.env.CLERK_PUBLISHABLE_KEY ? 'SET' : 'NOT SET');
 const app = (0, express_1.default)();
-app.get('/api/test-auth', (req, res) => {
-    const { userId } = (0, express_3.getAuth)(req);
-    console.log('userId:', userId);
-    console.log('headers:', req.headers.authorization);
-    res.json({ userId, hasAuth: !!req.headers.authorization });
-});
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)({
     origin: "https://sanjayasuriya.online",
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    credentials: true,
 }));
 app.use((0, express_2.clerkMiddleware)());
 app.use('/api/contents', content_1.default);

@@ -23,26 +23,18 @@ import PaymentRouter from './api/payment';
 import PurchasesRouter from './api/purchase';
 import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
-import { getAuth } from '@clerk/express';
 
 
+console.log('CLERK_SECRET_KEY:', process.env.CLERK_SECRET_KEY ? 'SET' : 'NOT SET');
+console.log('CLERK_PUBLISHABLE_KEY:', process.env.CLERK_PUBLISHABLE_KEY ? 'SET' : 'NOT SET');
 
 const app = express();
 
-app.get('/api/test-auth', (req, res) => {
-  const { userId } = getAuth(req);
-  console.log('userId:', userId);
-  console.log('headers:', req.headers.authorization);
-  res.json({ userId, hasAuth: !!req.headers.authorization });
-});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({ 
   origin: "https://sanjayasuriya.online",
-  allowedHeaders: ['Content-Type', 'Authorization'], 
-  methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH', 'OPTIONS'],
-  credentials: true,
 }));
 
 app.use(clerkMiddleware());
