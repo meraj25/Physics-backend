@@ -30,6 +30,19 @@ const cors_1 = __importDefault(require("cors"));
 const express_2 = require("@clerk/express");
 console.log('CLERK_SECRET_KEY:', process.env.CLERK_SECRET_KEY ? 'SET' : 'NOT SET');
 console.log('CLERK_PUBLISHABLE_KEY:', process.env.CLERK_PUBLISHABLE_KEY ? 'SET' : 'NOT SET');
+console.log('ENV CHECK:', {
+    PORT: process.env.PORT,
+    MONGODB_URI: process.env.MONGODB_URI,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    CLERK_PUBLISHABLE_KEY: process.env.CLERK_PUBLISHABLE_KEY,
+    PAYHERE_MERCHANT_ID: process.env.PAYHERE_MERCHANT_ID,
+    PAYHERE_MERCHANT_SECRET: process.env.PAYHERE_MERCHANT_SECRET,
+    PAYHERE_MODE: process.env.PAYHERE_MODE,
+    CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID,
+    CLOUDFLARE_API_TOKEN: process.env.CLOUDFLARE_API_TOKEN,
+    CLOUDFLARE_BUCKET_NAME: process.env.CLOUDFLARE_BUCKET_NAME,
+    CLOUDFLARE_PUBLIC_DOMAIN: process.env.CLOUDFLARE_PUBLIC_DOMAIN,
+});
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
