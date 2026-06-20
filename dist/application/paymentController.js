@@ -45,9 +45,10 @@ const generateHash = (merchantId, orderId, amount, currency, merchantSecret) => 
 const initiatePayment = async (req, res, next) => {
     try {
         console.log('🔑 Auth header:', req.headers.authorization?.substring(0, 30));
-        console.log('🔑 getAuth result:', JSON.stringify((0, express_1.getAuth)(req)));
+        const authObj = (0, express_1.getAuth)(req);
+        console.log('🔑 Full auth object:', JSON.stringify(authObj, null, 2));
         const { contentId } = req.body;
-        const { userId } = (0, express_1.getAuth)(req);
+        const { userId } = authObj;
         console.log('📦 initiatePayment called');
         console.log('contentId:', contentId);
         console.log('userId:', userId);

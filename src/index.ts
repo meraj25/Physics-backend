@@ -25,21 +25,6 @@ import cors from 'cors';
 import { clerkMiddleware } from '@clerk/express';
 
 
-console.log('CLERK_SECRET_KEY:', process.env.CLERK_SECRET_KEY ? 'SET' : 'NOT SET');
-console.log('CLERK_PUBLISHABLE_KEY:', process.env.CLERK_PUBLISHABLE_KEY ? 'SET' : 'NOT SET');
-console.log('ENV CHECK:', {
-  PORT: process.env.PORT,
-  MONGODB_URI: process.env.MONGODB_URI,
-  CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
-  CLERK_PUBLISHABLE_KEY: process.env.CLERK_PUBLISHABLE_KEY,
-  PAYHERE_MERCHANT_ID: process.env.PAYHERE_MERCHANT_ID,
-  PAYHERE_MERCHANT_SECRET: process.env.PAYHERE_MERCHANT_SECRET,
-  PAYHERE_MODE: process.env.PAYHERE_MODE,
-  CLOUDFLARE_ACCOUNT_ID: process.env.CLOUDFLARE_ACCOUNT_ID,
-  CLOUDFLARE_API_TOKEN: process.env.CLOUDFLARE_API_TOKEN,
-  CLOUDFLARE_BUCKET_NAME: process.env.CLOUDFLARE_BUCKET_NAME,
-  CLOUDFLARE_PUBLIC_DOMAIN: process.env.CLOUDFLARE_PUBLIC_DOMAIN,
-});
 
 const app = express();
 
@@ -53,9 +38,11 @@ app.use(cors({
 app.use(clerkMiddleware());
 
 app.use((req, res, next) => {
-  console.log(`📨 ${req.method} ${req.path}`);
+  console.log('🔍 req.auth exists?', !!(req as any).auth);
   next();
 });
+
+
 
 app.use('/api/contents', ContentRouter);
 app.use('/api/categories', CategoryRouter);

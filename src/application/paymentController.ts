@@ -56,9 +56,12 @@ const initiatePayment = async (
 ) => {
   try {
       console.log('🔑 Auth header:', req.headers.authorization?.substring(0, 30));
-    console.log('🔑 getAuth result:', JSON.stringify(getAuth(req)));
+
+    const authObj = getAuth(req);
+    console.log('🔑 Full auth object:', JSON.stringify(authObj, null, 2));
+
     const { contentId } = req.body;
-    const {userId} = getAuth(req);
+    const { userId } = authObj;
 
     console.log('📦 initiatePayment called')
     console.log('contentId:', contentId)
