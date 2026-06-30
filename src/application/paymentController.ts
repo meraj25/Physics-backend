@@ -55,17 +55,15 @@ const initiatePayment = async (
   next: NextFunction
 ) => {
   try {
-      console.log('🔑 Auth header:', req.headers.authorization?.substring(0, 30));
+      
 
     const authObj = getAuth(req);
-    console.log('🔑 Full auth object:', JSON.stringify(authObj, null, 2));
+    
 
     const { contentId } = req.body;
     const { userId } = authObj;
 
-    console.log('📦 initiatePayment called')
-    console.log('contentId:', contentId)
-    console.log('userId:', userId)
+ 
 
     if (!userId) {
       throw new ValidationError('User not authenticated');
@@ -92,9 +90,7 @@ const initiatePayment = async (
       }
     }
     if (content) {
-      console.log('✅ Content found:', content.topic)
-      console.log('💰 paymentstatus:', content.paymentstatus)
-      console.log('💵 price:', content.price)
+   
     }
 
     if (!content) {

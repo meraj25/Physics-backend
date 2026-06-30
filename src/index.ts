@@ -38,7 +38,7 @@ app.use(cors({
 app.use(clerkMiddleware());
 
 app.use((req, res, next) => {
-  console.log('🔍 req.auth exists?', !!(req as any).auth);
+ 
   next();
 });
 
